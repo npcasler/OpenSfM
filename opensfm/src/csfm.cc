@@ -2,15 +2,15 @@
 #include <vector>
 #include <pybind11/pybind11.h>
 
-#include "types.h"
-#include "hahog.cc"
-#include "multiview.cc"
 #include "akaze_bind.h"
 #include "bundle.h"
-#include "openmvs_exporter.h"
 #include "depthmap_bind.h"
+#include "hahog.cc"
+#include "matching.h"
+#include "multiview.cc"
+#include "openmvs_exporter.h"
 #include "reconstruction_alignment.h"
-
+#include "types.h"
 
 namespace py = pybind11;
 
@@ -70,6 +70,8 @@ PYBIND11_MODULE(csfm, m) {
         py::arg("target_num_features") = 0,
         py::arg("use_adaptive_suppression") = false
   );
+
+  m.def("match_using_words", csfm::match_using_words);
 
   m.def("triangulate_bearings_dlt", csfm::TriangulateBearingsDLT);
   m.def("triangulate_bearings_midpoint", csfm::TriangulateBearingsMidpoint);
