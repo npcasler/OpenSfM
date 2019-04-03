@@ -53,6 +53,7 @@ include_directories(${GLOG_INCLUDE_DIR})
 find_package(OpenCV REQUIRED core imgproc calib3d)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+find_package(pybind11 REQUIRED)
 
 # Akaze
 include_directories(third_party/akaze/lib/)
