@@ -18,7 +18,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
     -fvisibility=hidden \
     -fvisibility-inlines-hidden \
     -std=c++11 \
-    -U_FORTIFY_SOURCE")
+    -U_FORTIFY_SOURCE \
+    -Dpybind11_INCLUDE_DIR=/usr/share/include")
 
 # Find dependencies.
 #add_subdirectory(third_party/pybind11)
