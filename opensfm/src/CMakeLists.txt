@@ -12,17 +12,17 @@ set(CMAKE_MODULE_PATH ${opensfm_SOURCE_DIR}/cmake)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
     -fPIC \
-    -fvisibility=hidden")
+    -fvisibility=hidden
+    -U_FORTIFY_SOURCE")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
     -fPIC \
     -fvisibility=hidden \
     -fvisibility-inlines-hidden \
     -std=c++11 \
-    -U_FORTIFY_SOURCE \
-    -Dpybind11_INCLUDE_DIR=/usr/share/include")
+    -U_FORTIFY_SOURCE")
 
 # Find dependencies.
-#add_subdirectory(third_party/pybind11)
+add_subdirectory(third_party/pybind11)
 find_package(pybind11 REQUIRED)
 
 include_directories(${PYTHON_INCLUDE_DIRS})
