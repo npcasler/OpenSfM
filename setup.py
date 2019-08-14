@@ -34,7 +34,7 @@ def configure_c_extension():
     cmake_command = [
         'cmake',
         '../opensfm/src',
-        '-DCMAKE_CXX_FLAGS=\'-U_FORTIFY_SOURCE\'',
+        '-DHAS_FLTO=OFF',
         '-DPYTHON_EXECUTABLE=' + sys.executable,
     ]
     subprocess.check_call(cmake_command, cwd='cmake_build')
