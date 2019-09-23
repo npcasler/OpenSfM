@@ -1,3 +1,4 @@
+
 from __future__ import division
 
 import datetime
@@ -104,7 +105,10 @@ def get_xmp(fileobj):
     xmp_end = img_str.find('</x:xmpmeta')
 
     if xmp_start < xmp_end:
-        xmp_str = img_str[xmp_start:xmp_end + 12]
+        xmp_str_raw = img_str[xmp_start:xmp_end + 12]
+	xmp_str = ''
+	for i in xmp_str_raw.split('\\n'):
+	    xmp_str += i
         xdict = x2d.parse(xmp_str)
         xdict = xdict.get('x:xmpmeta', {})
         xdict = xdict.get('rdf:RDF', {})
