@@ -106,9 +106,9 @@ def get_xmp(fileobj):
 
     if xmp_start < xmp_end:
         xmp_str_raw = img_str[xmp_start:xmp_end + 12]
-	xmp_str = ''
-	for i in xmp_str_raw.split('\\n'):
-	    xmp_str += i
+        xmp_str = ''f
+        for i in xmp_str_raw.split('\\n'):
+            xmp_str += i
         xdict = x2d.parse(xmp_str)
         xdict = xdict.get('x:xmpmeta', {})
         xdict = xdict.get('rdf:RDF', {})
