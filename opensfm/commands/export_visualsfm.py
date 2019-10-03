@@ -34,10 +34,19 @@ class Command:
 
     def export(self, reconstruction, graph, data, with_points):
         lines = ['NVM_V3', '', str(len(reconstruction.shots))]
+        shot_size_cache = {}
+        shot_index = {}
+        i = 0
+
         for shot in reconstruction.shots.values():
             q = tf.quaternion_from_matrix(shot.pose.get_rotation_matrix())
             o = shot.pose.get_origin()
-            size = max(self.image_size(shot.id, data))
+
+            shot_size_cache[shot.id] = self.image_size(shot.id, data)
+            shot_index[shot.id] = i
+            i += 1
+            
+            size = max(shot_size_cache[shot.id])
             words = [
                 self.image_path(shot.id, data),
                 shot.camera.focal * size,
@@ -47,7 +56,6 @@ class Command:
             ]
             lines.append(' '.join(map(str, words)))
         
-        print('Okay')
         if with_points:
             lines.append('')
             points = reconstruction.points
