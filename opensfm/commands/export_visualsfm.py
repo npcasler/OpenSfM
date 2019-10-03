@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import logging
 import os
+from six import iteritems
 
 from opensfm import dataset
 from opensfm import transformations as tf
