@@ -28,12 +28,10 @@ class Command:
         else:
             reconstructions = data.load_reconstruction()
             graph = data.load_tracks_graph()
-        print('come on')
         if reconstructions:
             self.export(reconstructions[0], graph, data, args.points)
 
     def export(self, reconstruction, graph, data, with_points):
-        print('i know you work')
         lines = ['NVM_V3', '', str(len(reconstruction.shots))]
         for shot in reconstruction.shots.values():
             q = tf.quaternion_from_matrix(shot.pose.get_rotation_matrix())
@@ -48,7 +46,7 @@ class Command:
             ]
             lines.append(' '.join(map(str, words)))
         
-        print('Okay', args.points)
+        print('Okay')
         if with_points:
             lines.append('')
             points = reconstruction.points
