@@ -53,6 +53,7 @@ class Command:
             lines.append(str(len(points)))
 
             for point_id, point in iteritems(points):
+                print(point_id)
                 shots = reconstruction.shots
                 coord = point.coordinates
                 color = list(map(int, point.color))
