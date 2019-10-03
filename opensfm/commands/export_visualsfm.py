@@ -45,7 +45,7 @@ class Command:
             shot_size_cache[shot.id] = self.image_size(shot.id, data)
             shot_index[shot.id] = i
             i += 1
-            
+
             size = max(shot_size_cache[shot.id])
             words = [
                 self.image_path(shot.id, data),
@@ -73,8 +73,8 @@ class Command:
                 for shot_key, view in iteritems(view_list):
                     if shot_key in shots.keys():
                         v = view['feature']
-                        x = (0.5 + v[0]) * self.image_size(shot_key, data)[1]
-                        y = (0.5 + v[1]) * self.image_size(shot_key, data)[0]
+                        x = (0.5 + v[0]) * shot_size_cache[shot_key][1] #self.image_size(shot_key, data)[1]
+                        y = (0.5 + v[1]) * shot_size_cache[shot_key][0] #self.image_size(shot_key, data)[0]
                         view_line.append(' '.join(
                             map(str, [shot_index[shot_key], view['feature_id'], x, y])))
                 
