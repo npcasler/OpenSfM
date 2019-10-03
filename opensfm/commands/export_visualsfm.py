@@ -47,6 +47,7 @@ class Command:
             ]
             lines.append(' '.join(map(str, words)))
         
+        print('Okay', args.points)
         if with_points:
             lines.append('')
             points = reconstruction.points
