@@ -30,9 +30,9 @@ class Command:
             graph = data.load_tracks_graph()
 
         if reconstructions:
-            self.export(reconstructions[0], graph, data)
+            self.export(reconstructions[0], graph, data, args.points)
 
-    def export(self, reconstruction, graph, data):
+    def export(self, reconstruction, graph, data, with_points):
         lines = ['NVM_V3', '', str(len(reconstruction.shots))]
         for shot in reconstruction.shots.values():
             q = tf.quaternion_from_matrix(shot.pose.get_rotation_matrix())
@@ -46,7 +46,35 @@ class Command:
                 '0', '0',
             ]
             lines.append(' '.join(map(str, words)))
-        lines += ['0', '', '0', '', '0']
+        
+        if with_points:
+            lines.append('')
+            points = reconstruction.points
+            lines.append(str(len(points)))
+
+            for point_id, point in iteritems(points):
+                shots = reconstruction.shots
+                coord = point.coordinates
+                color = list(map(int, point.color))
+
+                view_list = graph[point_id]
+                view_line = []
+
+                for shot_key, view in iteritems(view_list):
+                    if shot_key in shots.keys():
+                        v = view['feature']
+                        x = (0.5 + v[0]) * self.image_size(shot_key, data)[1]
+                        y = (0.5 + v[1]) * self.image_size(shot_key, data)[0]
+                        view_line.append(' '.join(
+                            map(str, [shot_index[shot_key], view['feature_id'], x, y])))
+                
+                lines.append(' '.join(map(str, coord)) + ' ' + 
+                             ' '.join(map(str, color)) + ' ' + 
+                             str(len(view_line)) + ' ' + ' '.join(view_line))
+        else:
+            lines += ['0', '']
+
+        lines += ['0', '', '0']
 
         with io.open_wt(data.data_path + '/reconstruction.nvm') as fout:
             fout.write('\n'.join(lines))
