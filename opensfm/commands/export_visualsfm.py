@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import logging
 import os
 from six import iteritems
+from PIL import Image
 
 from opensfm import dataset
 from opensfm import transformations as tf
@@ -96,5 +97,7 @@ class Command:
 
     def image_size(self, image, data):
         """Height and width of the undistorted image."""
-        image = data.load_undistorted_image(image)
-        return image.shape[:2]
+        path = data._undistorted_image_file(image)
+        with Image.open(path) as img:
+            width, height = img.size
+        return height, width
