@@ -130,7 +130,8 @@ class EXIF:
     def __init__(self, fileobj):
         self.tags = exifread.process_file(fileobj, details=False)
         fileobj.seek(0)
-        self.xmp = get_xmp(fileobj)
+        self.xmp = {}
+        #self.xmp = get_xmp(fileobj)
 
     def extract_image_size(self):
         # Image Width and Image Height
