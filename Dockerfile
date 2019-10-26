@@ -60,6 +60,7 @@ RUN mkdir /tmp/opencv \
              -DBUILD_TESTS=OFF \
              -DBUILD_PERF_TESTS=OFF \
              -DCMAKE_BUILD_TYPE=Release \
+             -DOPENCV_ENABLE_NONFREE=ON \
              -DPYTHON3_EXECUTABLE=$(which python3) \
              -DPYTHON3_INCLUDE_DIR=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
              -DPYTHON3_PACKAGES_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
